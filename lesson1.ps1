@@ -106,6 +106,11 @@ Get-Process | Format-Wide -column 1 # отобразит содержимое в
 Get-Process | Format-Table # отобразить в виде таблицы (по-умолчанию для Get-Process)
 Get-Process -name powershell | Format-Table -property Company,Name,Id,Path -AutoSize
 
+
+# 1.3 | Конвеер, канал (pipe) перенаправляет вывод одной команды на вход другой
+
+Get-ChildItem | Sort-Object
+
 # Домашнее задание (дополнительная информация)
 
 # https://habrahabr.ru/company/netwrix/blog/158943/
