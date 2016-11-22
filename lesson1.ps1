@@ -24,7 +24,7 @@ Set-ExecutionPolicy RemoteSigned
 
 Enable-PSRemoting
 
-# Множество настроек Powershell находятся в профиле пользователя, который загружается в момент запуска powershell
+# Пользовательские настройки Powershell могут находиться в профиле пользователя, который загружается в момент запуска powershell
 
 $Profile
 
@@ -34,7 +34,7 @@ $Profile
 
 # <действие>-<объект> -Parameter <аргумент>
 
-# To check if path exist you have to execute
+# Для проверки существования пути
 
 Test-Path $Profile
 
@@ -63,7 +63,7 @@ Write-Error "Error"
 Get-Process
 Get-Process -name "*host"
 
-# Для запуска процесса Start-Process, для остановки Stop-Process
+# Для запуска процесса используем Start-Process, для остановки - Stop-Process
 
 Start-Process notepad
 Stop-Process notepad
@@ -104,12 +104,12 @@ Get-Command | more # вывод постранично
 
 Get-Process | Format-Wide -column 1 # отобразит содержимое в одной колонке
 Get-Process | Format-Table # отобразить в виде таблицы (по-умолчанию для Get-Process)
-Get-Process -name powershell | Format-Table -property Company,Name,Id,Path -AutoSize
+Get-Process -name powershell | Format-Table -property Company,Name,Id,Path -AutoSize # вывод только нужных колонок с подстройкой под размер окна
 
 
 # 1.3 | Конвеер, канал (pipe) перенаправляет вывод одной команды на вход другой
 
-Get-ChildItem | Sort-Object
+Get-ChildItem | Sort-Object # отсортирует результат по алфавиту
 
 # Домашнее задание (дополнительная информация)
 

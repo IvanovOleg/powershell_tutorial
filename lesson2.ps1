@@ -7,10 +7,10 @@
 # Способы задания переменных 
 
 $m = "Hello World!"
-[int]$ml = 4 # Распространенные типы данных: datetime, string, char, double, int, boolean
+[int]$ml = 4 # распространенные типы данных: datetime, string, char, double, int, boolean
 [System.Int32]$ml = 4
-$ml = "Mark" # Выдаст ошибку несоответствия типа данных
-${Mark Long} = 35 # чтобы задать переменную с пробелом в названии
+$ml = "Mark" # выдаст ошибку несоответствия типа данных
+${Mark Long} = 35 # чтобы задать переменную с пробелом в названии, потенциальный источник проблем
 
 Set-Variable serverIP -option ReadOnly # создать (изменить статус) переменную только для чтения
 Set-Variable serverIP -option none -force # отменить режим только для чтения
@@ -24,7 +24,7 @@ Remove-Variable serverIP -force # -force позволяет принудител
 # Область действия (scope) переменной
 
 $global:test = "test"   # Global - действует в пределах сессии powershell
-                        # Local - дейстует в пределах текущей области действия. Локальная обоасть действия может быть глобальной либо любой другой области действия
+                        # Local - дейстует в пределах текущей области действия. Локальная область действия может быть глобальной либо любой другой областью действия
 $script:scr = "Script"  # Script - дествует в пределах выполнения скрипта
 # Private - не видна за пределами текущей обасти действия
 $Env:Path # Environment variables - переменные окружения Windows
@@ -35,11 +35,11 @@ $lenght = 10
 function GeneratePassword {
     param([int]$length)
     $assembly = Add-Type -AssemblyName System.Web
-    $password = [System.Web.Security.Membership]::GeneratePassword($script:length,2)
+    $password = [System.Web.Security.Membership]::GeneratePassword($script:length,2) #  будет взято 10, а не 100
     return $password
 }
 
-$password # будет пустой
+$password # будет пустой поскольку задана внутри функции (private)
 
 # Получить значение переменной
 
@@ -50,12 +50,12 @@ $m
 $m | Get-Member
 $m | Get-Member -membertype properties # отобразит только свойства
 
-# Powershell может изменять тип переменной динамически, но только если тип переменной не задан явно и это не только для чтения
+# Powershell может изменять тип переменной динамически, но только если тип переменной не задан явно и переменная не только для чтения
 
 $a = 4
-$a | Get-Member # Выдаст System.int32
+$a | Get-Member # выдаст System.int32
 $a = "Test"
-$a | Get-Member # Выдаст System.String
+$a | Get-Member # выдаст System.String
 
 #
 # 2.2 Типы данных
@@ -63,12 +63,12 @@ $a | Get-Member # Выдаст System.String
 
 # Самые популярные типы данных
 
-[int]$i = 5 # Integer, целые числа
-[double]$d = 25.56 # Double, дробные
-[string]$s = "String" # String, строки
+[int]$i = 5 # integer, целые числа
+[double]$d = 25.56 # double, дробные
+[string]$s = "String" # string, строки
 [array]$a = 1,2,3,4,5 # массив
 [array]$a = @(1,2,3,4,5) # массив
-[hashtable]$h = @{"name" = "Oleg"; "email" = "oleg.ivanov@globallogic.com"} # Хэш (словарь)
+[hashtable]$h = @{"name" = "Oleg"; "email" = "oleg.ivanov@globallogic.com"} # хэш (словарь)
 [datetime]$dt = Get-Date # дата
 [bool]$bl = $true # логические
 
@@ -90,20 +90,20 @@ $ml.SendMsg()
 #
 
 <#
--eq   # Равно Equal to (=)
--lt   # Меньше Less than (<)
--gt   # Больше Greater than (>)
--ge   # Больше либо равно Greater than or equal to (>=)
--le   # Меньше либо равно Less than or equal to (<=)
--ne   # Не равно Not equal to (!=)
+-eq   # равно Equal to (=)
+-lt   # меньше Less than (<)
+-gt   # больше Greater than (>)
+-ge   # больше либо равно Greater than or equal to (>=)
+-le   # меньше либо равно Less than or equal to (<=)
+-ne   # не равно Not equal to (!=)
 
--ieq  # Стравнение строк (не учитывает регистр) for strings, case insensitive (default)
--ceq  # Сравнение строе (с учетом регистра) for strings, case sensitive
+-ieq  # сравнение строк (не учитывает регистр) for strings, case insensitive (default)
+-ceq  # сравнение строе (с учетом регистра) for strings, case sensitive
 
--not  # Логическое нет logical Not
-!     # Логическое нет logical Not
--and  # И And
--or   # Или Or
+-not  # логическое "нет" logical Not
+!     # логическое "нет" logical Not
+-and  # логическое "и" And
+-or   # логическое "или" Or
 #>
 
 $a = 6
@@ -120,7 +120,7 @@ $c -ceq $d # False
 
 # Оператор if
 
-if (условие) {Команда} # Шаблон записи проверки выполнения условия
+if (условие) {Команда} # шаблон записи проверки выполнения условия
 
 if ($a -eq $b) {
     Write-Host "Equal"
@@ -136,18 +136,18 @@ else {
 #
 
 <#
-For Each-Object # Обработать коллекцию объектов Loops through a collection of objects
-For             # Выполнить комманду определенное количество раз Executes a specific number of times
-While           # Выполнять комманду пока условие соблюдается Executes as long as a condition remains true; test the condition first
-Do While        # Выполнять комманду пока условие соблюдается (выполняется первый раз без проверки, в любом случае) Executes once, then tests the condition then repeats as long as a condition remains true
-Do Until        # Выполнять до тех пор пока Executes once and repeats until a condition is true
+For Each-Object # обработать коллекцию объектов Loops through a collection of objects
+For             # выполнять комманду определенное количество раз Executes a specific number of times
+While           # выполнять комманду пока условие соблюдается Executes as long as a condition remains true; test the condition first
+Do While        # выполнять комманду пока условие соблюдается (выполняется первый раз без проверки, в любом случае) Executes once, then tests the condition then repeats as long as a condition remains true
+Do Until        # выполнять до тех пор пока Executes once and repeats until a condition is true
 #>
 
-$a = 5,6,7,8,9 # collection
-$a = "Mark","Bob","Jane" # collection
+$a = 5,6,7,8,9 # массив array
+$a = "Mark","Bob","Jane" # массив array
 
-$a | ForEach {Write-Host $_}
-Get-Service | Where-Object {$_.DisplayName -Match "MS"} # $_ - это текущий объект в цикле
+$a | ForEach {Write-Host $_} # выдаст все элементы массива, каждый на отдельной строке
+Get-Service | Where-Object {$_.DisplayName -Match "MS"} # $_ - это текущий объект в цикле, выдаст только те сервисы, в имени которых присутствует "MS"
 
 foreach ($item in $a) {
     Write-Host $item
@@ -177,3 +177,7 @@ do {
     Write-Host $g
     $g++
 } until ($g -gt 5)
+
+# Домашнее задание (дополнительная информация)
+
+# https://habrahabr.ru/post/242445/
