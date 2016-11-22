@@ -1,11 +1,11 @@
-# Урок №1: Командлеты
+﻿# Урок №1: Командлеты
 
 #
 # 1.1 Запуск Powershell
 #
 
 # <WIN> + R, в открывшимся окне написать powershell
-# кнопка поиск на панели быстрого запуска + powershell 
+# кнопка поиск на панели быстрого запуска + powershell
 # Для запуска от имени администратора (правой кнопкой по ярлыку и выбрать "запуск от имени администратора") или:
 
 Start-Process Powershell -verb runas
@@ -47,7 +47,7 @@ New-Item -path $Profile -type file -force
 New-Item -path .\test_file.txt -type file
 New-Item -path .\test_directory -type directory
 
-# В профиль можно добавить команды, которые будут выполняться какждый раз при открытии powershell
+# В профиль можно добавить команды, которые будут выполняться каждый раз при открытии powershell
 
 notepad $Profile
 Clear-Host # CTRL + L
