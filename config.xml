@@ -1,0 +1,11 @@
+<xml>
+    <Section name="BackendStatus">
+        <BEName BE="crust" Status="1" />
+        <BEName BE="pizza" Status="1" />
+        <BEName BE="pie" Status="1" />
+        <BEName BE="bread" Status="1" />
+        <BEName BE="Kulcha" Status="1" />
+        <BEName BE="kulfi" Status="1" />
+        <BEName BE="cheese" Status="1" />
+    </Section>
+</xml>
