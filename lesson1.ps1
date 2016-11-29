@@ -65,8 +65,8 @@ Get-Process -name "*host"
 
 # Для запуска процесса используем Start-Process, для остановки - Stop-Process
 
-Start-Process notepad
-Stop-Process notepad
+Start-Process -Name "notepad"
+Stop-Process -Name "notepad"
 
 # Для получения справки по командлету
 
@@ -100,12 +100,17 @@ Update-Help
 Get-Command
 Get-Command | more # вывод постранично
 
-# To format the output of the cmlets you can use Format
+# Для получения списка доступных модулей
+
+Get-Module -ListAvailable
+
+# Для форматирования вывода
 
 Get-Process | Format-Wide -column 1 # отобразит содержимое в одной колонке
 Get-Process | Format-Table # отобразить в виде таблицы (по-умолчанию для Get-Process)
-Get-Process -name powershell | Format-Table -property Company,Name,Id,Path -AutoSize # вывод только нужных колонок с подстройкой под размер окна
 
+ # Вывод только нужных колонок с подстройкой под размер окна
+Get-Process -Name powershell | Format-Table -property Company,Name,Id,Path -AutoSize
 
 # 1.3 | Конвеер, канал (pipe) перенаправляет вывод одной команды на вход другой
 

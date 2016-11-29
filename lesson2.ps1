@@ -15,7 +15,9 @@ ${Mark Long} = 35 # чтобы задать переменную с пробел
 Set-Variable serverIP -option ReadOnly # создать (изменить статус) переменную только для чтения
 Set-Variable serverIP -option none -force # отменить режим только для чтения
 Set-Variable serverIP -option Constant -value "127.0.0.1" # константа отличается от только для чтения тем, что не позволяет себя удалить
-New-Variable -Name counter -Visibility private # позволяет задать параметры новой переменной: description, read-only, constants, scope, public or private
+
+# Позволяет задать параметры новой переменной: description, read-only, constants, scope, public or private
+New-Variable -Name counter -Visibility private
 
 # Удаление переменной
 
@@ -23,11 +25,31 @@ Remove-Variable serverIP -force # -force позволяет принудител
 
 # Область действия (scope) переменной
 
-$global:test = "test"   # Global - действует в пределах сессии powershell
-                        # Local - дейстует в пределах текущей области действия. Локальная область действия может быть глобальной либо любой другой областью действия
-$script:scr = "Script"  # Script - дествует в пределах выполнения скрипта
+# Global - действует в пределах сессии powershell
+
+$global:test = "test"
+
+# Local - дейстует в пределах текущей области действия. Локальная область действия может быть глобальной либо любой другой областью действия
+
+$local:test = "test"
+
+# Script - дествует в пределах выполнения скрипта
+
+$script:scr = "Script"
+
 # Private - не видна за пределами текущей обасти действия
-$Env:Path # Environment variables - переменные окружения Windows
+
+# Environment variables - переменные окружения Windows
+
+Get-ChildItem Env: # отобразить переменные окружения
+
+$Env:Path
+
+$env:TestVariable = "This is a test environment variable." # будет существовать только в текущей сессии powershell
+[Environment]::SetEnvironmentVariable("TestVariable", "Test value.", "User") # постоянная (User, Machine, Process)
+
+Remove-Item Env:\TestVariable # удаление переменной окружения
+[Environment]::SetEnvironmentVariable("TestVariable",$null,"User")
 
 $global:length = 100
 $lenght = 10
@@ -38,6 +60,9 @@ function GeneratePassword {
     $password = [System.Web.Security.Membership]::GeneratePassword($script:length,2) #  будет взято 10, а не 100
     return $password
 }
+
+$result = (GeneratePassword)
+$result
 
 $password # будет пустой поскольку задана внутри функции (private)
 
@@ -139,7 +164,8 @@ else {
 For Each-Object # обработать коллекцию объектов Loops through a collection of objects
 For             # выполнять комманду определенное количество раз Executes a specific number of times
 While           # выполнять комманду пока условие соблюдается Executes as long as a condition remains true; test the condition first
-Do While        # выполнять комманду пока условие соблюдается (выполняется первый раз без проверки, в любом случае) Executes once, then tests the condition then repeats as long as a condition remains true
+Do While        # выполнять комманду пока условие соблюдается (выполняется первый раз без проверки, в любом случае) Executes once,
+                # then tests the condition then repeats as long as a condition remains true
 Do Until        # выполнять до тех пор пока Executes once and repeats until a condition is true
 #>
 
@@ -147,7 +173,10 @@ $a = 5,6,7,8,9 # массив array
 $a = "Mark","Bob","Jane" # массив array
 
 $a | ForEach {Write-Host $_} # выдаст все элементы массива, каждый на отдельной строке
-Get-Service | Where-Object {$_.DisplayName -Match "MS"} # $_ - это текущий объект в цикле, выдаст только те сервисы, в имени которых присутствует "MS"
+
+# $_ - это текущий объект в цикле, выдаст только те сервисы, в имени которых присутствует "MS"
+
+Get-Service | Where-Object {$_.DisplayName -Match "MS"}
 
 foreach ($item in $a) {
     Write-Host $item
