@@ -109,7 +109,7 @@ Get-Module -ListAvailable
 Get-Process | Format-Wide -column 1 # отобразит содержимое в одной колонке
 Get-Process | Format-Table # отобразить в виде таблицы (по-умолчанию для Get-Process)
 
- # Вывод только нужных колонок с подстройкой под размер окна
+# Вывод только нужных колонок с подстройкой под размер окна
 Get-Process -Name powershell | Format-Table -property Company,Name,Id,Path -AutoSize
 
 # 1.3 | Конвеер, канал (pipe) перенаправляет вывод одной команды на вход другой

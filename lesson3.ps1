@@ -46,6 +46,8 @@ $domain = "google.com"
 $url = "https://${domain}/mail" # "https://google.com/mail"
 $url = "https://${script:domain}/mail" # "https://google.com/mail"
 
+# Разница между двойной и одинарной кавычкой
+
 $single = '`ttest' # "`ttest" специальные символы игнорируются
 $double = "`ttest" # "    test" специальные символы обрабатываются
 
@@ -96,6 +98,8 @@ $domains = @(
     "google.com"
     "ukr.net"
 )
+
+(Get-Process).ProcessName # вывод только содержимого одной колонки
 
 #
 # 3.4 Работа с хэшами
