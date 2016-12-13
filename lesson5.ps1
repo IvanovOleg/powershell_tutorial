@@ -19,7 +19,11 @@ param(
 
     [Parameter(Mandatory=$true)]
     [securestring]
-    $password
+    $password,
+
+    [Parameter(Mandatory=$false)]
+    [bool]
+    $execution = $true
 )
 
 #
@@ -93,30 +97,32 @@ function SetFakeResource {
 # Execution
 #
 
-$Env:yourPassword
-$connectionString
-$newPassword
+if ($execution) {
+    $Env:yourPassword
+    $connectionString
+    $newPassword
 
-# -foreground позволяет выделить текст другим цветом
-Write-Host "`n[ Creating a powershell credential ]`n" -foreground "green"
-$psCredential = CreatePowershellCredential -username $firstName -password $newPassword
-$psCredential.GetType()
+    # -foreground позволяет выделить текст другим цветом
+    Write-Host "`n[ Creating a powershell credential ]`n" -foreground "green"
+    $psCredential = CreatePowershellCredential -username $firstName -password $newPassword
+    $psCredential.GetType()
+    $psCredential
 
-Write-Host "`n[ Decoding a secure string ]`n" -foreground "green"
-$decodedPassword = (DecodeSecureString)
-$decodedPassword
+    Write-Host "`n[ Decoding a secure string ]`n" -foreground "green"
+    $decodedPassword = (DecodeSecureString)
+    $decodedPassword
 
-Write-Host "`n[ Deleting a file ]`n" -foreground "green"
-DeleteFile -path ".\delete.me"
+    Write-Host "`n[ Deleting a file ]`n" -foreground "green"
+    DeleteFile -path ".\delete.me"
 
-Write-Host "`n[ Getting a fake resource using a REST API call ]`n" -foreground "green"
-$response = (GetFakeResource)
-$response
+    Write-Host "`n[ Getting a fake resource using a REST API call ]`n" -foreground "green"
+    $response = (GetFakeResource)
+    $response
 
-Write-Host "`n[ Creating a fake resource using a REST API call ]`n" -foreground "green"
-$response = (SetFakeResource)
-$response
-
+    Write-Host "`n[ Creating a fake resource using a REST API call ]`n" -foreground "green"
+    $response = (SetFakeResource)
+    $response
+}
 
 # Домашнее задание
 
